@@ -11,7 +11,11 @@ public class ArdMediathek extends AbstractGrabber {
 
 	public static final String ARD_MEDIATHEK_URL = "http://www.ardmediathek.de/play/media/%s?devicetype=pc";
 
-	public String resolveMp4Url(String videoPageUrl) {
+	public ArdMediathek(AbstractGrabber grabber) {
+		super(grabber);
+	}
+
+	public String grab(String videoPageUrl) {
 		if (videoPageUrl == null)
 			return null;
 

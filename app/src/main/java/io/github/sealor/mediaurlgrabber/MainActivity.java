@@ -7,14 +7,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import io.github.sealor.mediaurlgrabber.grabber.ArdMediathek;
+import io.github.sealor.mediaurlgrabber.grabber.MediaUrlGrabber;
 
 public class MainActivity extends AppCompatActivity {
 
 	TextView urlTextView;
 	Button sendUrlButton;
 
-	ArdMediathek ardMediathek = new ArdMediathek();
+	MediaUrlGrabber mediaUrlGrabber = new MediaUrlGrabber();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 			@Override
 			public void run() {
 				final String videoPageUrl = intent.getStringExtra(Intent.EXTRA_TEXT);
-				final String videoUrl = ardMediathek.resolveMp4Url(videoPageUrl);
+				final String videoUrl = mediaUrlGrabber.grabMediaUrl(videoPageUrl);
 
 				if (Intent.ACTION_SEND.equals(action) && videoUrl != null) {
 					urlTextView.post(new Runnable() {

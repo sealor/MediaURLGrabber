@@ -11,13 +11,13 @@ import static org.junit.Assert.assertEquals;
 
 public class ArdMediathekTest {
 
-	public ArdMediathek ardMediathek = new ArdMediathek();
+	public ArdMediathek ardMediathek = new ArdMediathek(null);
 
 	@Test
 	public void test() throws IOException, ParseException {
 		String videoUrl = "http://www.ardmediathek.de/tv/In-aller-Freundschaft-Die-jungen-%C3%84rzte/Folge-134-Unentbehrlich/Das-Erste/Video?bcastId=24966374&documentId=51049740";
 
-		String mp4Url = this.ardMediathek.resolveMp4Url(videoUrl);
+		String mp4Url = this.ardMediathek.grab(videoUrl);
 
 		String expectedMp4Url = "https://pdvideosdaserste-a.akamaihd.net/int/2018/02/23/064efa44-438c-4b12-ab66-93cef65d2e0a/960-1.mp4";
 		assertEquals(expectedMp4Url, mp4Url);
