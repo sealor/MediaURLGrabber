@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import io.github.sealor.mediaurlgrabber.grabber.ArdMediathek;
+
 public class MainActivity extends AppCompatActivity {
 
 	TextView urlTextView;
