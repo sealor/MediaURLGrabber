@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">MediaURLGrabber</string>
+
+    <string name="dummy_button">Send URL</string>
+    <string name="dummy_content">Media URL Grabber</string>
+</resources>
