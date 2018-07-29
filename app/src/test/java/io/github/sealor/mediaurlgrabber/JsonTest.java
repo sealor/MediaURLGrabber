@@ -23,6 +23,18 @@ public class JsonTest {
 	}
 
 	@Test
+	public void testGetWithAttributeName() {
+		String jsonString = "{\"attr\":\"abc\"}";
+		assertEquals("abc", new JsonParser().parse(jsonString).get("attr"));
+	}
+
+	@Test
+	public void testGetWithIndex() {
+		String jsonString = "[\"abc\"]";
+		assertEquals("abc", new JsonParser().parse(jsonString).get(0));
+	}
+
+	@Test
 	public void testGetStringWithAttributeName() {
 		String jsonString = "{\"attr\":\"abc\"}";
 		assertEquals("abc", new JsonParser().parse(jsonString).getString("attr"));

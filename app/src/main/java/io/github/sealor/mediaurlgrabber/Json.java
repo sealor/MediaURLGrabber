@@ -22,22 +22,40 @@ public class Json {
 		return this.json instanceof JSONArray;
 	}
 
-	public String getString(String attributeName) {
-		JSONObject jsonObject = (JSONObject) this.json;
+	public Object get(String attributeName) {
 		try {
-			return (String) jsonObject.get(attributeName);
+			JSONObject jsonObject = (JSONObject) this.json;
+			return jsonObject.get(attributeName);
 		} catch (Exception e) {
-			String message = format("string attribute '%s' not in '%s'", attributeName, jsonObject);
+			String message = format("attribute '%s' not in '%s'", attributeName, this.json);
+			throw new RuntimeException(message, e);
+		}
+	}
+
+	public Object get(int index) {
+		try {
+			JSONArray jsonArray = (JSONArray) this.json;
+			return jsonArray.get(index);
+		} catch (Exception e) {
+			String message = format("attribute '%s' not in '%s'", index, this.json);
+			throw new RuntimeException(message, e);
+		}
+	}
+
+	public String getString(String attributeName) {
+		try {
+			return (String) get(attributeName);
+		} catch (Exception e) {
+			String message = format("string attribute '%s' not in '%s'", attributeName, this.json);
 			throw new RuntimeException(message, e);
 		}
 	}
 
 	public String getString(int index) {
-		JSONArray jsonArray = (JSONArray) this.json;
 		try {
-			return (String) jsonArray.get(index);
+			return (String) get(index);
 		} catch (Exception e) {
-			String message = format("index '%d' not in '%s'", index, jsonArray);
+			String message = format("index '%d' not in '%s'", index, this.json);
 			throw new RuntimeException(message, e);
 		}
 	}
