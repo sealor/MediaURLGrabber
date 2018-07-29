@@ -19,13 +19,13 @@ public class ArdMediathek extends AbstractGrabber {
 		if (videoPageUrl == null)
 			return null;
 
-		Pattern ardUrlPattern = Pattern.compile("^.*ardmediathek.de/.*(\\?|&)documentId=(\\d+).*$");
+		Pattern ardUrlPattern = Pattern.compile("^.*(ardmediathek.de|mediathek.daserste.de)/.*(\\?|&)documentId=(\\d+).*$");
 		Matcher matcher = ardUrlPattern.matcher(videoPageUrl);
 
 		if (!matcher.find())
 			return null;
 
-		String documentIdString = matcher.group(2);
+		String documentIdString = matcher.group(3);
 		String deviceInfoUrl = format(ARD_MEDIATHEK_URL, documentIdString);
 		Json json = parser.parse(openUrl(deviceInfoUrl));
 		return json.getJson("_mediaArray[1]._mediaStreamArray[4]").getString("_stream");
