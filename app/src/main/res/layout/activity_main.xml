@@ -19,78 +19,75 @@
         android:textSize="50sp"
         android:textStyle="bold"/>
 
-    <!-- This FrameLayout insets its children based on system windows using
-         android:fitsSystemWindows. -->
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/fullscreen_content_controls"
-            style="?metaButtonBarStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:background="@color/black_overlay"
-            android:orientation="horizontal"
-            tools:ignore="UselessParent">
-
-            <Button
-                android:id="@+id/send_url_button"
-                style="?metaButtonBarButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/dummy_button"/>
-
-        </LinearLayout>
-
-        <LinearLayout
+        <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_above="@+id/send_url_button">
 
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                <TableLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/urlLabelView"
+                    <TableRow
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="URL:" />
+                        android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/urlTextView"
+                        <TextView
+                            android:id="@+id/urlLabelText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="URL:" />
+
+                        <TextView
+                            android:id="@+id/urlTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </TableRow>
+
+                    <TableRow
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </TableRow>
+                        android:layout_height="wrap_content">
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/logLabelText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Log:" />
+                    </TableRow>
 
-                    <TextView
-                        android:id="@+id/logLabelView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Log:" />
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/logTextView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/logTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
 
-                </TableRow>
+                    </TableRow>
 
-            </TableLayout>
-        </LinearLayout>
+                </TableLayout>
+            </ScrollView>
+        </HorizontalScrollView>
 
-    </FrameLayout>
+        <Button
+            android:id="@+id/send_url_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/dummy_button" />
+    </RelativeLayout>
+
+    <!-- This FrameLayout insets its children based on system windows using
+         android:fitsSystemWindows. -->
 
 </FrameLayout>

@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 		final Intent intent = getIntent();
 		final String action = intent.getAction();
 
-		Log.e(LOG_TAG, "Action: " + action + "\n");
+		Log.i(LOG_TAG, "Action: " + action + "\n");
 
 		new Thread(new Runnable() {
 			@Override
