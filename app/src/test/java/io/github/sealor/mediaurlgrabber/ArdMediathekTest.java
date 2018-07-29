@@ -33,4 +33,14 @@ public class ArdMediathekTest {
 		assertEquals(expectedMp4Url, mp4Url);
 	}
 
+	@Test
+	public void testInasNacht() throws IOException, ParseException {
+		String videoUrl = "https://www.ardmediathek.de/tv/Inas-Nacht/Inas-Nacht-mit-Bettina-Zimmermann-Doro-/Das-Erste/Video?bcastId=3411450&documentId=54609802";
+
+		String mp4Url = this.ardMediathek.grab(videoUrl);
+
+		String expectedMp4Url = "https://mediandr-a.akamaihd.net/progressive/2018/0727/TV-20180727-1056-0200.hd.mp4";
+		assertEquals(expectedMp4Url, mp4Url);
+	}
+
 }

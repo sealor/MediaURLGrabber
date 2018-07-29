@@ -1,5 +1,6 @@
 package io.github.sealor.mediaurlgrabber.grabber;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,7 +29,16 @@ public class ArdMediathek extends AbstractGrabber {
 		String documentIdString = matcher.group(3);
 		String deviceInfoUrl = format(ARD_MEDIATHEK_URL, documentIdString);
 		Json json = parser.parse(openUrl(deviceInfoUrl));
-		return json.getJson("_mediaArray[1]._mediaStreamArray[4]").getString("_stream");
+
+		Json streamJson = json.getJson("_mediaArray[1]._mediaStreamArray[4]");
+
+		if (streamJson.get("_stream") instanceof List)
+			return streamJson.getJson("_stream").getString(0);
+
+		if (streamJson.get("_stream") instanceof String)
+			return streamJson.getString("_stream");
+
+		throw new RuntimeException("Unknown type in '_stream': " + streamJson.toString());
 	}
 
 }
