@@ -6,8 +6,21 @@ import java.util.Arrays;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class JsonTest {
+
+	@Test
+	public void testIsObject() {
+		String jsonString = "{}";
+		assertTrue(new JsonParser().parse(jsonString).isObject());
+	}
+
+	@Test
+	public void testIsArray() {
+		String jsonString = "[]";
+		assertTrue(new JsonParser().parse(jsonString).isArray());
+	}
 
 	@Test
 	public void testGetStringWithAttributeName() {

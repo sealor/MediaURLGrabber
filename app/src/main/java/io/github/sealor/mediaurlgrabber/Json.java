@@ -10,8 +10,16 @@ public class Json {
 	private final Object json;
 
 	public Json(Object jsonObjectOrArray) {
-		assert jsonObjectOrArray instanceof JSONObject || jsonObjectOrArray instanceof JSONArray;
 		this.json = jsonObjectOrArray;
+		assert isObject() || isArray();
+	}
+
+	public boolean isObject() {
+		return this.json instanceof JSONObject;
+	}
+
+	public boolean isArray() {
+		return this.json instanceof JSONArray;
 	}
 
 	public String getString(String attributeName) {
@@ -59,7 +67,7 @@ public class Json {
 	}
 
 	public String toString() {
-		if (this.json instanceof JSONArray)
+		if (isArray())
 			return ((JSONArray) this.json).toJSONString();
 		else
 			return ((JSONObject) this.json).toJSONString();
