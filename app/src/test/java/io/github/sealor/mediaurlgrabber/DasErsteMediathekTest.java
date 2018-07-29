@@ -15,11 +15,11 @@ public class DasErsteMediathekTest {
 
 	@Test
 	public void test() throws IOException, ParseException {
-		String videoUrl = "http://mediathek.daserste.de/In-aller-Freundschaft-Die-jungen-%C3%84rzte/Folge-137-Rettung/Video?bcastId=24966374&documentId=51588142";
+		String videoUrl = "http://mediathek.daserste.de/In-aller-Freundschaft-Die-jungen-%C3%84rzte/Folge-148-Kontrollverlust/Video?bcastId=24966374&documentId=54549288";
 
 		String mp4Url = this.dasErsteMediathek.grab(videoUrl);
 
-		String expectedMp4Url = "https://pdvideosdaserste-a.akamaihd.net/int/2018/03/22/ae622732-4496-4d8b-93a4-19bede9404fe/960-1.mp4";
+		String expectedMp4Url = "https://pdvideosdaserste-a.akamaihd.net/int/2018/06/25/1a6c11c3-a601-41f5-9041-eda48169a487/960-1.mp4";
 		assertEquals(expectedMp4Url, mp4Url);
 	}
 
