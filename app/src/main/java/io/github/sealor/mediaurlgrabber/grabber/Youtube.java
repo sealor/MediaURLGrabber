@@ -21,11 +21,16 @@ public class Youtube extends AbstractGrabber {
 		if (videoPageUrl == null)
 			return null;
 
-		Pattern urlPattern = Pattern.compile("^.*\\.youtube.[a-z]{1,3}/.*[?&]v=(\\w+).*$");
-		Matcher matcher = urlPattern.matcher(videoPageUrl);
+		Pattern urlPattern1 = Pattern.compile("^.*\\.youtube.[a-z]{1,3}/.*[?&]v=(\\w+).*$");
+		Matcher matcher = urlPattern1.matcher(videoPageUrl);
 
-		if (!matcher.find())
-			return null;
+		if (!matcher.find()) {
+			Pattern urlPattern2 = Pattern.compile("^.*youtu\\.be/([\\w_]+)$");
+			matcher = urlPattern2.matcher(videoPageUrl);
+
+			if (!matcher.find())
+				return null;
+		}
 
 		String videoHash = matcher.group(1);
 		String infoUrl = format(YOUTUBE_INFO_URL, videoHash);
