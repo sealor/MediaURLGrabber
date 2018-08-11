@@ -4,7 +4,7 @@ package io.github.sealor.mediaurlgrabber.grabber;
 public class MediaUrlGrabber extends AbstractGrabber {
 
 	public MediaUrlGrabber() {
-		super(new ArdMediathek(null));
+		super(new ArdMediathek(new Youtube(null)));
 	}
 
 	@Override
