@@ -1,3 +1,6 @@
-language: java
-script: ./gradlew test --info
-
+language: android
+before_install:
+  - yes | sdkmanager --update
+script:
+  - ./gradlew assemble
+  - ./gradlew test --info
