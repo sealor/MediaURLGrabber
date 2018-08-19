@@ -1,4 +1,4 @@
-package io.github.sealor.mediaurlgrabber;
+package io.github.sealor.mediaurlgrabber.lib.json;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

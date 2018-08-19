@@ -1,11 +1,11 @@
-package io.github.sealor.mediaurlgrabber.grabber;
+package io.github.sealor.mediaurlgrabber.lib;
 
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-import io.github.sealor.mediaurlgrabber.JsonParser;
+import io.github.sealor.mediaurlgrabber.lib.json.JsonParser;
 
 public abstract class AbstractGrabber {
 

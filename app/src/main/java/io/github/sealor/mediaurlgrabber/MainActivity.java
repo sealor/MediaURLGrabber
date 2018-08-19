@@ -14,7 +14,7 @@ import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import io.github.sealor.mediaurlgrabber.grabber.MediaUrlGrabber;
+import io.github.sealor.mediaurlgrabber.lib.MediaUrlGrabber;
 
 public class MainActivity extends AppCompatActivity {
 

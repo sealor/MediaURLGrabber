@@ -1,4 +1,4 @@
-package io.github.sealor.mediaurlgrabber.grabber;
+package io.github.sealor.mediaurlgrabber.lib;
 
 
 public class MediaUrlGrabber extends AbstractGrabber {

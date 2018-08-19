@@ -1,8 +1,8 @@
-package io.github.sealor.mediaurlgrabber.helper;
+package io.github.sealor.mediaurlgrabber.lib.helper;
 
 import org.junit.Test;
 
-import static io.github.sealor.mediaurlgrabber.helper.StringStartsWithRegex.startsWithRegex;
+import static io.github.sealor.mediaurlgrabber.lib.helper.StringStartsWithRegex.startsWithRegex;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertThat;
 

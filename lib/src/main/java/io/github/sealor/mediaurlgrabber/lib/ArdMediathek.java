@@ -1,10 +1,10 @@
-package io.github.sealor.mediaurlgrabber.grabber;
+package io.github.sealor.mediaurlgrabber.lib;
 
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import io.github.sealor.mediaurlgrabber.Json;
+import io.github.sealor.mediaurlgrabber.lib.json.Json;
 
 import static java.lang.String.format;
 

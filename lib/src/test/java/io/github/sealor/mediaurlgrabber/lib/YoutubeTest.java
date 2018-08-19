@@ -1,10 +1,8 @@
-package io.github.sealor.mediaurlgrabber;
+package io.github.sealor.mediaurlgrabber.lib;
 
 import org.junit.Test;
 
-import io.github.sealor.mediaurlgrabber.grabber.Youtube;
-
-import static io.github.sealor.mediaurlgrabber.helper.StringStartsWithRegex.startsWithRegex;
+import static io.github.sealor.mediaurlgrabber.lib.helper.StringStartsWithRegex.startsWithRegex;
 import static org.junit.Assert.assertThat;
 
 public class YoutubeTest {

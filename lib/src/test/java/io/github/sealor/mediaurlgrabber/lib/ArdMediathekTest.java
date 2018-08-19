@@ -1,11 +1,9 @@
-package io.github.sealor.mediaurlgrabber;
+package io.github.sealor.mediaurlgrabber.lib;
 
 import org.json.simple.parser.ParseException;
 import org.junit.Test;
 
 import java.io.IOException;
-
-import io.github.sealor.mediaurlgrabber.grabber.ArdMediathek;
 
 import static org.junit.Assert.assertEquals;
 
