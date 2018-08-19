@@ -4,7 +4,8 @@ import org.junit.Test;
 
 import io.github.sealor.mediaurlgrabber.grabber.Youtube;
 
-import static org.junit.Assert.assertTrue;
+import static io.github.sealor.mediaurlgrabber.helper.StringStartsWithRegex.startsWithRegex;
+import static org.junit.Assert.assertThat;
 
 public class YoutubeTest {
 
@@ -16,8 +17,7 @@ public class YoutubeTest {
 
 		String mp4Url = this.youtube.grab(videoUrl);
 
-		String expectedMp4UrlBegin = "https://r2---sn-4g5edns6.googlevideo.com/videoplayback?";
-		assertTrue(mp4Url.startsWith(expectedMp4UrlBegin));
+		assertThat(mp4Url, startsWithRegex("https://r2---sn-4g5e[0-9a-z]{4}[.]googlevideo[.]com/videoplayback[?]"));
 	}
 
 	@Test
@@ -26,8 +26,7 @@ public class YoutubeTest {
 
 		String mp4Url = this.youtube.grab(videoUrl);
 
-		String expectedMp4UrlBegin = "https://r2---sn-4g5e6nze.googlevideo.com/videoplayback?";
-		assertTrue(mp4Url.startsWith(expectedMp4UrlBegin));
+		assertThat(mp4Url, startsWithRegex("https://r2---sn-4g5e[0-9a-z]{4}[.]googlevideo[.]com/videoplayback[?]"));
 	}
 
 }
