@@ -15,7 +15,7 @@ public class YoutubeTest {
 
 		String mp4Url = this.youtube.grab(videoUrl);
 
-		assertThat(mp4Url, startsWithRegex("https://r2---sn-4g5e[0-9a-z]{4}[.]googlevideo[.]com/videoplayback[?]"));
+		assertThat(mp4Url, startsWithRegex("https://r2---sn-[0-9a-z]{8}[.]googlevideo[.]com/videoplayback[?](.*&)?mime=video"));
 	}
 
 	@Test
@@ -24,7 +24,7 @@ public class YoutubeTest {
 
 		String mp4Url = this.youtube.grab(videoUrl);
 
-		assertThat(mp4Url, startsWithRegex("https://r2---sn-4g5e[0-9a-z]{4}[.]googlevideo[.]com/videoplayback[?]"));
+		assertThat(mp4Url, startsWithRegex("https://r2---sn-[0-9a-z]{8}[.]googlevideo[.]com/videoplayback[?](.*&)?mime=video"));
 	}
 
 }
