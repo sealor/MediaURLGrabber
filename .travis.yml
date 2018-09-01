@@ -4,3 +4,5 @@ before_install:
 script:
   - ./gradlew assemble
   - ./gradlew test --info
+after_script:
+  - sdkmanager --list
