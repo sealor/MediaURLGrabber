@@ -39,23 +39,32 @@ public class FlowTest {
 
 	@Test
 	public void testDecodeHtml() {
-		assertEquals("a&b", new Flow("a&amp;b").decodeHtml().toString());
+		String text = new Flow("a&amp;b").decodeHtml().toString();
+		assertEquals("a&b", text);
 	}
 
 	@Test
 	public void testFindRegex() {
-		assertEquals("abc", new Flow("text abc text").findRegex(".* (abc) .*").toString());
+		String text = new Flow("text abc text").findRegex(".* (abc) .*").toString();
+		assertEquals("abc", text);
 	}
 
 	@Test
 	public void testFindRegexFailedWithNoMatch() {
-		assertEquals(null, new Flow("text def text").findRegex(".* (abc) .*").toString());
+		String text = new Flow("text def text").findRegex(".* (abc) .*").toString();
+		assertEquals(null, text);
 	}
 
 	@Test
 	public void testFindRegexFailedWithNullInput() {
 		thrown.expect(NullPointerException.class);
 		new Flow(null).findRegex("(abc)");
+	}
+
+	@Test
+	public void testFormatContent() {
+		String text = new Flow("abc").formatContent("%sdef").toString();
+		assertEquals("abcdef", text);
 	}
 
 }

@@ -4,6 +4,8 @@ import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static java.lang.String.format;
+
 public class Flow {
 
 	private final String content;
@@ -29,6 +31,10 @@ public class Flow {
 	public Flow findRegex(String groupPattern) {
 		Matcher m = Pattern.compile(groupPattern).matcher(this.content);
 		return new Flow(m.find() ? m.group(1) : null);
+	}
+
+	public Flow formatContent(String format) {
+		return new Flow(format(format, this.content));
 	}
 
 	public String toString() {
