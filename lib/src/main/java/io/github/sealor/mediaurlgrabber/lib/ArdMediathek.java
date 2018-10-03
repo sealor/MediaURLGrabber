@@ -1,16 +1,8 @@
 package io.github.sealor.mediaurlgrabber.lib;
 
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import io.github.sealor.mediaurlgrabber.lib.json.Json;
-
-import static java.lang.String.format;
+import io.github.sealor.mediaurlgrabber.lib.flow.Flow;
 
 public class ArdMediathek extends AbstractGrabber {
-
-	public static final String ARD_MEDIATHEK_URL = "http://www.ardmediathek.de/play/media/%s?devicetype=pc";
 
 	public ArdMediathek(AbstractGrabber grabber) {
 		super(grabber);
@@ -20,25 +12,22 @@ public class ArdMediathek extends AbstractGrabber {
 		if (videoPageUrl == null)
 			return null;
 
-		Pattern ardUrlPattern = Pattern.compile("^.*(ardmediathek.de|mediathek.daserste.de)/.*(\\?|&)documentId=(\\d+).*$");
-		Matcher matcher = ardUrlPattern.matcher(videoPageUrl);
+		Flow flow = new Flow(videoPageUrl)
+				.findRegex("^.*(?:ardmediathek.de|mediathek.daserste.de)/.*(?:\\?|&)documentId=(\\d+).*$");
 
-		if (!matcher.find())
+		if (flow.toString() == null)
 			return null;
 
-		String documentIdString = matcher.group(3);
-		String deviceInfoUrl = format(ARD_MEDIATHEK_URL, documentIdString);
-		Json json = parser.parse(openUrl(deviceInfoUrl));
+		String streamJson = flow
+				.formatContent("http://www.ardmediathek.de/play/media/%s?devicetype=pc")
+				.readUrl()
+				.resolveJson("_mediaArray[1]._mediaStreamArray[4]._stream")
+				.toString();
 
-		Json streamJson = json.getJson("_mediaArray[1]._mediaStreamArray[4]");
-
-		if (streamJson.get("_stream") instanceof List)
-			return streamJson.getJson("_stream").getString(0);
-
-		if (streamJson.get("_stream") instanceof String)
-			return streamJson.getString("_stream");
-
-		throw new RuntimeException("Unknown type in '_stream': " + streamJson.toString());
+		if (streamJson.startsWith("["))
+			return new Flow(streamJson).resolveJson("[0]").toString();
+		else
+			return streamJson;
 	}
 
 }
