@@ -11,7 +11,7 @@ public class Json {
 
 	public Json(Object jsonObjectOrArray) {
 		this.json = jsonObjectOrArray;
-		assert isObject() || isArray();
+		assert isObject() || isArray() || isString();
 	}
 
 	public boolean isObject() {
@@ -20,6 +20,10 @@ public class Json {
 
 	public boolean isArray() {
 		return this.json instanceof JSONArray;
+	}
+
+	public boolean isString() {
+		return this.json instanceof String;
 	}
 
 	public Object get(String attributeName) {
@@ -68,7 +72,7 @@ public class Json {
 			if (index != null) {
 				JSONArray jsonArray = (JSONArray) currentJson.json;
 				currentJson = new Json(jsonArray.get(index));
-			} else {
+			} else if (!pathFragment.isEmpty()) {
 				JSONObject jsonObject = (JSONObject) currentJson.json;
 				currentJson = new Json(jsonObject.get(pathFragment));
 			}
@@ -87,8 +91,10 @@ public class Json {
 	public String toString() {
 		if (isArray())
 			return ((JSONArray) this.json).toJSONString();
-		else
+		else if (isObject())
 			return ((JSONObject) this.json).toJSONString();
+		else
+			return this.json.toString();
 	}
 
 }
