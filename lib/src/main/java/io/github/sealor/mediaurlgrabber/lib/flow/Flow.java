@@ -45,8 +45,16 @@ public class Flow {
 		return new Flow(json.getJson(path).toString());
 	}
 
+	public Flow resolveUrlValue(String parameterName) {
+		String url = this.content.replaceFirst("^[^?]*\\?", "");
+
+		for (String parameter : url.split("&"))
+			if (parameter.startsWith(parameterName + "="))
+				return new Flow(parameter.replaceFirst(".*=", ""));
+		throw new FlowException(parameterName + " in URL " + url + " not found");
+	}
+
 	public String toString() {
 		return this.content;
 	}
-
 }

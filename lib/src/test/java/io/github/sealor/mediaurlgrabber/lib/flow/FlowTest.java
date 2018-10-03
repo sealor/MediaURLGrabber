@@ -81,4 +81,20 @@ public class FlowTest {
 		assertEquals("{'inner':'object'}".replace('\'', '"'), text);
 	}
 
+	@Test
+	public void testResolveUrlValue() {
+		String urlParameters = "google.de?abc=def&ghi=klm";
+		String text = new Flow(urlParameters).resolveUrlValue("abc").toString();
+		assertEquals("def", text);
+	}
+
+	@Test
+	public void testResolveUrlValueFailed() {
+		String urlParameters = "google.de?abc=def&ghi=klm";
+
+		thrown.expect(FlowException.class);
+		thrown.expectMessage("xyz in URL abc=def&ghi=klm not found");
+		new Flow(urlParameters).resolveUrlValue("xyz");
+	}
+
 }
