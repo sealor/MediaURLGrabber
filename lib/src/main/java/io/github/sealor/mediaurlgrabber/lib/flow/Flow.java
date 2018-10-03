@@ -4,6 +4,9 @@ import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import io.github.sealor.mediaurlgrabber.lib.json.Json;
+import io.github.sealor.mediaurlgrabber.lib.json.JsonParser;
+
 import static java.lang.String.format;
 
 public class Flow {
@@ -35,6 +38,11 @@ public class Flow {
 
 	public Flow formatContent(String format) {
 		return new Flow(format(format, this.content));
+	}
+
+	public Flow resolveJson(String path) {
+		Json json = new JsonParser().parse(this.content);
+		return new Flow(json.getJson(path).toString());
 	}
 
 	public String toString() {
