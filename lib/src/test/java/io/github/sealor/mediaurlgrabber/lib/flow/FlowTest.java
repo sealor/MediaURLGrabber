@@ -44,6 +44,12 @@ public class FlowTest {
 	}
 
 	@Test
+	public void testDecodeUrl() {
+		String text = new Flow("abc%20def").decodeUrl().toString();
+		assertEquals("abc def", text);
+	}
+
+	@Test
 	public void testFindRegex() {
 		String text = new Flow("text abc text").findRegex(".* (abc) .*").toString();
 		assertEquals("abc", text);

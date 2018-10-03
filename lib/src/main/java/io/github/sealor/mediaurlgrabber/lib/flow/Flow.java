@@ -1,5 +1,6 @@
 package io.github.sealor.mediaurlgrabber.lib.flow;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -8,6 +9,7 @@ import io.github.sealor.mediaurlgrabber.lib.json.Json;
 import io.github.sealor.mediaurlgrabber.lib.json.JsonParser;
 
 import static java.lang.String.format;
+import static java.net.URLDecoder.decode;
 
 public class Flow {
 
@@ -29,6 +31,14 @@ public class Flow {
 
 	public Flow decodeHtml() {
 		return new Flow(this.content.replaceAll("&amp;", "&"));
+	}
+
+	public Flow decodeUrl() {
+		try {
+			return new Flow(decode(this.content, "UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	public Flow findRegex(String groupPattern) {
@@ -57,4 +67,5 @@ public class Flow {
 	public String toString() {
 		return this.content;
 	}
+
 }
