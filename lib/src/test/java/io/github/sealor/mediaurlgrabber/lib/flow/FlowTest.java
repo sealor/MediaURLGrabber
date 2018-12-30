@@ -90,6 +90,24 @@ public class FlowTest {
 	}
 
 	@Test
+	public void testXPathWithJson() {
+		String json = "{'abc':[1,{'key':'value'},9]}".replace('\'', '"');
+
+		String result = new Flow(json).resolveXPathInJson("//abc/key").toString();
+		assertEquals("value", result);
+	}
+
+	@Test
+	public void testExceptionIfXPathNotFound() {
+		String json = "{'abc':[1,{'key':'value'},9]}".replace('\'', '"');
+
+		thrown.expect(FlowException.class);
+		thrown.expectMessage("XPath '//abc/abc' not found in document:\n" +
+				"<root><abc>1</abc><abc><key>value</key></abc><abc>9</abc></root>");
+		new Flow(json).resolveXPathInJson("//abc/abc");
+	}
+
+	@Test
 	public void testResolveUrlValue() {
 		String urlParameters = "google.de?abc=def&ghi=klm";
 		String text = new Flow(urlParameters).resolveUrlValue("abc").toString();

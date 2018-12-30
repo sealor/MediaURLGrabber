@@ -1,9 +1,18 @@
 package io.github.sealor.mediaurlgrabber.lib.flow;
 
+import org.json.JSONObject;
+import org.json.XML;
+import org.xml.sax.InputSource;
+
+import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 
 import io.github.sealor.mediaurlgrabber.lib.json.Json;
 import io.github.sealor.mediaurlgrabber.lib.json.JsonParser;
@@ -14,6 +23,8 @@ import static java.net.URLDecoder.decode;
 public class Flow {
 
 	private final String content;
+
+	private final XPathFactory xPathFactory = XPathFactory.newInstance();
 
 	public Flow(String content) {
 		this.content = content;
@@ -67,8 +78,25 @@ public class Flow {
 		throw new FlowException(parameterName + " in URL " + url + " not found");
 	}
 
+	public Flow resolveXPathInJson(String xpathString) {
+		JSONObject json = new JSONObject(this.content);
+		String xml = XML.toString(json, "root");
+
+		String result;
+		try {
+			XPath xpath = this.xPathFactory.newXPath();
+			result = xpath.evaluate(xpathString, new InputSource(new StringReader(xml)));
+		} catch (XPathExpressionException e) {
+			throw new RuntimeException(e);
+		}
+
+		if (result.isEmpty())
+			throw new FlowException(format("XPath '%s' not found in document:%n%s", xpathString, xml));
+
+		return new Flow(result);
+	}
+
 	public String toString() {
 		return this.content;
 	}
-
 }
