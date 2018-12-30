@@ -7,12 +7,15 @@ import org.xml.sax.InputSource;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
+
+import io.github.sealor.mediaurlgrabber.lib.normalizer.KeyNormalizer;
 
 import static java.lang.String.format;
 import static java.net.URLDecoder.decode;
@@ -22,6 +25,7 @@ public class Flow {
 	private final String content;
 
 	private final XPathFactory xPathFactory = XPathFactory.newInstance();
+	private final KeyNormalizer keyNormalizer = new KeyNormalizer();
 
 	public Flow(String content) {
 		this.content = content;
@@ -71,8 +75,12 @@ public class Flow {
 	}
 
 	public Flow resolveXPathInJson(String xpathString) {
-		JSONObject json = new JSONObject(this.content);
-		String xml = XML.toString(json, "root");
+		JSONObject jsonObject = new JSONObject(this.content);
+		Map<String, Object> jsonMap = jsonObject.toMap();
+		jsonMap = this.keyNormalizer.normalize(jsonMap);
+		jsonObject = new JSONObject(jsonMap);
+
+		String xml = XML.toString(jsonObject, "root");
 
 		String result;
 		try {
