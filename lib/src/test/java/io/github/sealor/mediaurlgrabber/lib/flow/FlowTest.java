@@ -57,8 +57,10 @@ public class FlowTest {
 
 	@Test
 	public void testFindRegexFailedWithNoMatch() {
-		String text = new Flow("text def text").findRegex(".* (abc) .*").toString();
-		assertEquals(null, text);
+		thrown.expect(FlowException.class);
+		thrown.expectMessage("Regex '.* (abc) .*' not found in document:\ntext def text");
+
+		new Flow("text def text").findRegex(".* (abc) .*");
 	}
 
 	@Test

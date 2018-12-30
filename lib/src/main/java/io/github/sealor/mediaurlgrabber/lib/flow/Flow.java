@@ -43,7 +43,10 @@ public class Flow {
 
 	public Flow findRegex(String groupPattern) {
 		Matcher m = Pattern.compile(groupPattern).matcher(this.content);
-		return new Flow(m.find() ? m.group(1) : null);
+		if (m.find())
+			return new Flow(m.group(1));
+
+		throw new FlowException(format("Regex '%s' not found in document:%n%s", groupPattern, this.content));
 	}
 
 	public Flow formatContent(String format) {
