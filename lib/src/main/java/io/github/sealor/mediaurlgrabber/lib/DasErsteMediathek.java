@@ -2,9 +2,9 @@ package io.github.sealor.mediaurlgrabber.lib;
 
 import io.github.sealor.mediaurlgrabber.lib.flow.Flow;
 
-public class ArdMediathek extends AbstractGrabber {
+public class DasErsteMediathek extends AbstractGrabber {
 
-	public ArdMediathek(AbstractGrabber grabber) {
+	public DasErsteMediathek(AbstractGrabber grabber) {
 		super(grabber);
 	}
 
@@ -13,7 +13,7 @@ public class ArdMediathek extends AbstractGrabber {
 			return null;
 
 		Flow flow = new Flow(videoPageUrl)
-				.findRegex("^.*ardmediathek.de/.*(?:\\?|&)documentId=(\\d+).*$");
+				.findRegex("^.*mediathek.daserste.de/.*(?:\\?|&)documentId=(\\d+).*$");
 
 		if (flow.toString() == null)
 			return null;

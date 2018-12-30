@@ -27,19 +27,6 @@ public class ArdMediathekTest {
 	}
 
 	@Test
-	public void testDasErsteMediathekInAllerFreundschaft() throws IOException {
-		Flow flow = new Flow("http://mediathek.daserste.de/In-aller-Freundschaft/Sendung?documentId=6032920&topRessort&bcastId=6032920")
-				.readUrl()
-				.findRegex("<a href=\"(/In-aller-Freundschaft/Folge-[^\"]+)\" class=\"mediaLink\">")
-				.decodeHtml();
-		String videoUrl = "http://mediathek.daserste.de" + flow;
-
-		String mp4Url = this.ardMediathek.grab(videoUrl);
-
-		assertThat(mp4Url, startsWithRegex("https://.*\\.akamaihd\\.net/.*\\.mp4"));
-	}
-
-	@Test
 	public void testArdMediathekInasNacht() throws IOException {
 		Flow flow = new Flow("https://www.ardmediathek.de/tv/Inas-Nacht/Sendung?documentId=52544614&bcastId=52544614")
 				.readUrl()
