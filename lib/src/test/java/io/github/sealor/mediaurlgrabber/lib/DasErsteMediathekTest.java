@@ -15,11 +15,11 @@ public class DasErsteMediathekTest {
 
 	@Test
 	public void testInAllerFreundschaft() throws IOException {
-		Flow flow = new Flow("http://mediathek.daserste.de/In-aller-Freundschaft/Sendung?documentId=6032920&topRessort&bcastId=6032920")
+		Flow lastShow = new Flow("http://mediathek.daserste.de/In-aller-Freundschaft/Sendung?documentId=6032920&topRessort&bcastId=6032920")
 				.readUrl()
-				.findRegex("<a href=\"(/In-aller-Freundschaft/Folge-[^\"]+)\" class=\"mediaLink\">")
+				.findRegex("<a href=\"(/In-aller-Freundschaft/[^\"]+)\" class=\"mediaLink\">")
 				.decodeHtml();
-		String videoUrl = "http://mediathek.daserste.de" + flow;
+		String videoUrl = "http://mediathek.daserste.de" + lastShow;
 
 		String mp4Url = this.dasErsteMediathek.grab(videoUrl);
 
