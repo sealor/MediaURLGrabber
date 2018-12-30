@@ -1,6 +1,8 @@
 package io.github.sealor.mediaurlgrabber.lib.json;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.util.Arrays;
 
@@ -9,6 +11,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class JsonTest {
+
+	@Rule
+	public ExpectedException thrown = ExpectedException.none();
 
 	@Test
 	public void testIsObject() {
@@ -62,6 +67,17 @@ public class JsonTest {
 	public void testGetJsonWithPath() {
 		String jsonString = "{\"attr1\":{\"attr2\":[\"def\",\"ghi\",{\"attr3\":\"abc\"}]}}";
 		assertEquals("{\"attr3\":\"abc\"}", new JsonParser().parse(jsonString).getJson("attr1.attr2[2]").toString());
+	}
+
+	@Test
+	public void expectExceptionInWrongPath() {
+		String jsonString = "{\"attr1\":{\"attr2\":null}}";
+
+		thrown.expect(JsonException.class);
+		thrown.expectMessage("Path 'attr1.attr2[2]' ('attr2') not found in document:\n" +
+				jsonString);
+
+		new JsonParser().parse(jsonString).getJson("attr1.attr2[2]");
 	}
 
 	@Test

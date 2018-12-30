@@ -69,12 +69,18 @@ public class Json {
 		for (String pathFragment : path.split("[.\\[\\]]+")) {
 			Integer index = tryToParseInt(pathFragment);
 
-			if (index != null) {
-				JSONArray jsonArray = (JSONArray) currentJson.json;
-				currentJson = new Json(jsonArray.get(index));
-			} else if (!pathFragment.isEmpty()) {
-				JSONObject jsonObject = (JSONObject) currentJson.json;
-				currentJson = new Json(jsonObject.get(pathFragment));
+			try {
+				if (index != null) {
+					JSONArray jsonArray = (JSONArray) currentJson.json;
+					currentJson = new Json(jsonArray.get(index));
+				} else if (!pathFragment.isEmpty()) {
+					JSONObject jsonObject = (JSONObject) currentJson.json;
+					currentJson = new Json(jsonObject.get(pathFragment));
+				}
+			} catch (Throwable e) {
+				throw new JsonException(format(
+						"Path '%s' ('%s') not found in document:%n%s",
+						path, pathFragment, this.json.toString()), e);
 			}
 		}
 		return currentJson;
