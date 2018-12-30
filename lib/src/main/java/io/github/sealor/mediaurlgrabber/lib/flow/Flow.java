@@ -16,8 +16,8 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import io.github.sealor.mediaurlgrabber.lib.normalizer.KeyNormalizer;
-import io.github.sealor.mediaurlgrabber.lib.xpath.MathFunctionResolver;
-import io.github.sealor.mediaurlgrabber.lib.xpath.MathNamespaceContext;
+import io.github.sealor.mediaurlgrabber.lib.xpath.FunctionExtensionResolver;
+import io.github.sealor.mediaurlgrabber.lib.xpath.NamespaceExtensionContext;
 
 import static java.lang.String.format;
 import static java.net.URLDecoder.decode;
@@ -87,8 +87,8 @@ public class Flow {
 		String result;
 		try {
 			XPath xPath = this.xPathFactory.newXPath();
-			xPath.setNamespaceContext(new MathNamespaceContext());
-			xPath.setXPathFunctionResolver(new MathFunctionResolver());
+			xPath.setNamespaceContext(new NamespaceExtensionContext());
+			xPath.setXPathFunctionResolver(new FunctionExtensionResolver());
 
 			result = xPath.evaluate(xpathString, new InputSource(new StringReader(xml)));
 		} catch (XPathExpressionException e) {
