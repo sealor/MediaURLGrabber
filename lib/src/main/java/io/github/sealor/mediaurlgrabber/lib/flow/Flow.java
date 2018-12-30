@@ -14,9 +14,6 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
-import io.github.sealor.mediaurlgrabber.lib.json.Json;
-import io.github.sealor.mediaurlgrabber.lib.json.JsonParser;
-
 import static java.lang.String.format;
 import static java.net.URLDecoder.decode;
 
@@ -62,11 +59,6 @@ public class Flow {
 
 	public Flow formatContent(String format) {
 		return new Flow(format(format, this.content));
-	}
-
-	public Flow resolveJson(String path) {
-		Json json = new JsonParser().parse(this.content);
-		return new Flow(json.getJson(path).toString());
 	}
 
 	public Flow resolveUrlValue(String parameterName) {

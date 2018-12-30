@@ -76,20 +76,6 @@ public class FlowTest {
 	}
 
 	@Test
-	public void testResolveJsonString() {
-		String json = "{'abc':[1,'def',9]}".replace('\'', '"');
-		String text = new Flow(json).resolveJson("abc[1]").toString();
-		assertEquals("def".replace('\'', '"'), text);
-	}
-
-	@Test
-	public void testResolveJsonObject() {
-		String json = "{'abc':[1,{'inner':'object'},9]}".replace('\'', '"');
-		String text = new Flow(json).resolveJson("abc[1]").toString();
-		assertEquals("{'inner':'object'}".replace('\'', '"'), text);
-	}
-
-	@Test
 	public void testXPathWithJson() {
 		String json = "{'abc':[1,{'key':'value'},9]}".replace('\'', '"');
 
