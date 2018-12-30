@@ -76,17 +76,21 @@ public class FlowTest {
 	}
 
 	@Test
-	public void testResolveJsonString() {
-		String json = "{'abc':[1,'def',9]}".replace('\'', '"');
-		String text = new Flow(json).resolveJson("abc[1]").toString();
-		assertEquals("def".replace('\'', '"'), text);
+	public void testXPathWithJson() {
+		String json = "{'abc':[1,{'key':'value'},9]}".replace('\'', '"');
+
+		String result = new Flow(json).resolveXPathInJson("//abc/key").toString();
+		assertEquals("value", result);
 	}
 
 	@Test
-	public void testResolveJsonObject() {
-		String json = "{'abc':[1,{'inner':'object'},9]}".replace('\'', '"');
-		String text = new Flow(json).resolveJson("abc[1]").toString();
-		assertEquals("{'inner':'object'}".replace('\'', '"'), text);
+	public void testExceptionIfXPathNotFound() {
+		String json = "{'abc':[1,{'key':'value'},9]}".replace('\'', '"');
+
+		thrown.expect(FlowException.class);
+		thrown.expectMessage("XPath '//abc/abc' not found in document:\n" +
+				"<root><abc>1</abc><abc><key>value</key></abc><abc>9</abc></root>");
+		new Flow(json).resolveXPathInJson("//abc/abc");
 	}
 
 	@Test

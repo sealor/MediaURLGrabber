@@ -21,13 +21,10 @@ public class DasErsteMediathek extends AbstractGrabber {
 		String streamJson = flow
 				.formatContent("http://www.ardmediathek.de/play/media/%s?devicetype=pc")
 				.readUrl()
-				.resolveJson("_mediaArray[0]._mediaStreamArray[4]._stream")
+				.resolveXPathInJson("//_mediaStreamArray[last()]/_stream")
 				.toString();
 
-		if (streamJson.startsWith("["))
-			return new Flow(streamJson).resolveJson("[0]").toString();
-		else
-			return streamJson;
+		return streamJson;
 	}
 
 }
