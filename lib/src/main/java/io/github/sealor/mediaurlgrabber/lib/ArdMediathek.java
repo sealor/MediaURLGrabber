@@ -13,15 +13,16 @@ public class ArdMediathek extends AbstractGrabber {
 			return null;
 
 		Flow flow = new Flow(videoPageUrl)
-				.findRegex("^.*ardmediathek.de/.*(?:\\?|&)documentId=(\\d+).*$");
+				.findRegex("^.*ardmediathek.de/.*/player/(.*?)/?$");
 
 		if (flow.toString() == null)
 			return null;
 
 		String streamJson = flow
-				.formatContent("http://www.ardmediathek.de/play/media/%s?devicetype=pc")
+				.formatContent("https://www.ardmediathek.de/ard/player/%s")
 				.readUrl()
-				.resolveXPathInJson("//_mediaStreamArray[last()]/_stream")
+				.findRegex("window\\.__APOLLO_STATE__\\s*=\\s*(\\{.*?\\});")
+				.resolveXPathInJson("//json[../../__typename/text() = 'MediaStreamArray'][../../_quality = string(math:max(//_quality[. != 'auto']/text()))][last()]/text()")
 				.toString();
 
 		return streamJson;

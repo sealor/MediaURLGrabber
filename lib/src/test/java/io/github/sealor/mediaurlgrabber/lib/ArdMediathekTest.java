@@ -15,26 +15,28 @@ public class ArdMediathekTest {
 
 	@Test
 	public void testArdMediathekInAllerFreundschaft() throws IOException {
-		Flow flow = new Flow("https://www.ardmediathek.de/tv/In-aller-Freundschaft/Sendung?documentId=13258516")
+		String lastShowUrl = new Flow("https://www.ardmediathek.de/ard/shows/Y3JpZDovL2Rhc2Vyc3RlLmRlL2luIGFsbGVyIGZyZXVuZHNjaGFmdA/in-aller-freundschaft")
 				.readUrl()
-				.findRegex("<a href=\"(/tv/In-aller-Freundschaft/[^\"]+)\" class=\"mediaLink\">")
-				.decodeHtml();
-		String videoUrl = "https://www.ardmediathek.de" + flow;
+				.findRegex("window\\.__APOLLO_STATE__\\s*=\\s*(\\{.*?\\});")
+				.resolveXPathInJson("//*[broadcastedOn][str:translate(./broadcastedOn/text(), '-T:Z', '') = math:max(str:translate(//broadcastedOn/text(), '-T:Z', ''))][last()]/id/text()")
+				.formatContent("https://www.ardmediathek.de/ard/player/%s/")
+				.toString();
 
-		String mp4Url = this.ardMediathek.grab(videoUrl);
+		String mp4Url = this.ardMediathek.grab(lastShowUrl);
 
 		assertThat(mp4Url, startsWithRegex("https://.*\\.akamaihd\\.net/.*\\.mp4"));
 	}
 
 	@Test
 	public void testArdMediathekInasNacht() throws IOException {
-		Flow flow = new Flow("https://www.ardmediathek.de/tv/Inas-Nacht/Sendung?documentId=52544614&bcastId=52544614")
+		String lastShowUrl = new Flow("https://www.ardmediathek.de/ard/shows/Y3JpZDovL2Rhc2Vyc3RlLm5kci5kZS8xNDA5/inas-nacht")
 				.readUrl()
-				.findRegex("<a href=\"(/tv/Inas-Nacht/.*/NDR-Fernsehen/[^\"]+)\" class=\"mediaLink\">")
-				.decodeHtml();
-		String videoUrl = "https://www.ardmediathek.de" + flow;
+				.findRegex("window\\.__APOLLO_STATE__\\s*=\\s*(\\{.*?\\});")
+				.resolveXPathInJson("//*[broadcastedOn][str:translate(./broadcastedOn/text(), '-T:Z', '') = math:max(str:translate(//broadcastedOn/text(), '-T:Z', ''))][last()]/id/text()")
+				.formatContent("https://www.ardmediathek.de/ard/player/%s/")
+				.toString();
 
-		String mp4Url = this.ardMediathek.grab(videoUrl);
+		String mp4Url = this.ardMediathek.grab(lastShowUrl);
 
 		assertThat(mp4Url, startsWithRegex("https://.*\\.akamaihd\\.net/.*\\.mp4"));
 	}
