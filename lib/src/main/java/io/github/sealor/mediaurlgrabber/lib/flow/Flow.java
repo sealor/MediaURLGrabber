@@ -56,11 +56,20 @@ public class Flow {
 	}
 
 	public Flow findRegex(String groupPattern) {
+		Flow result = tryToFindRegex(groupPattern);
+
+		if (result.toString() == null)
+			throw new FlowException(format("Regex '%s' not found in document:%n%s", groupPattern, this.content));
+
+		return result;
+	}
+
+	public Flow tryToFindRegex(String groupPattern) {
 		Matcher m = Pattern.compile(groupPattern).matcher(this.content);
 		if (m.find())
 			return new Flow(m.group(1));
 
-		throw new FlowException(format("Regex '%s' not found in document:%n%s", groupPattern, this.content));
+		return new Flow(null);
 	}
 
 	public Flow formatContent(String format) {

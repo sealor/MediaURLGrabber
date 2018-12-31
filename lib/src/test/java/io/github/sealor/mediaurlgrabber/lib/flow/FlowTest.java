@@ -6,6 +6,7 @@ import org.junit.rules.ExpectedException;
 
 import static org.hamcrest.CoreMatchers.startsWith;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 public class FlowTest {
@@ -61,6 +62,18 @@ public class FlowTest {
 		thrown.expectMessage("Regex '.* (abc) .*' not found in document:\ntext def text");
 
 		new Flow("text def text").findRegex(".* (abc) .*");
+	}
+
+	@Test
+	public void testTryToFindRegex() {
+		String text = new Flow("text abc text").tryToFindRegex(".* (abc) .*").toString();
+		assertEquals("abc", text);
+	}
+
+	@Test
+	public void testTryToFindRegexWithNoMatch() {
+		String text = new Flow("text abc text").tryToFindRegex(".* (def) .*").toString();
+		assertNull(text);
 	}
 
 	@Test

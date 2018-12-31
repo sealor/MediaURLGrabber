@@ -15,7 +15,7 @@ public class Youtube extends AbstractGrabber {
 
 
 		Flow flow = new Flow(videoPageUrl)
-				.findRegex("^.*(?:\\.youtube.[a-z]{1,3}/.*[?&]v=|youtu\\.be/)([\\w_]+).*$");
+				.tryToFindRegex("^.*(?:\\.youtube.[a-z]{1,3}/.*[?&]v=|youtu\\.be/)([\\w_]+).*$");
 
 		if (flow.toString() == null)
 			return null;

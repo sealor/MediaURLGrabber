@@ -13,7 +13,7 @@ public class DasErsteMediathek extends AbstractGrabber {
 			return null;
 
 		Flow flow = new Flow(videoPageUrl)
-				.findRegex("^.*mediathek.daserste.de/.*(?:\\?|&)documentId=(\\d+).*$");
+				.tryToFindRegex("^.*mediathek.daserste.de/.*(?:\\?|&)documentId=(\\d+).*$");
 
 		if (flow.toString() == null)
 			return null;

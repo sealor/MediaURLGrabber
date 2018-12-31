@@ -13,7 +13,7 @@ public class ArdMediathek extends AbstractGrabber {
 			return null;
 
 		Flow flow = new Flow(videoPageUrl)
-				.findRegex("^.*ardmediathek.de/.*/player/(.*?)/?$");
+				.tryToFindRegex("^.*ardmediathek.de/.*/player/(.*?)/?$");
 
 		if (flow.toString() == null)
 			return null;
