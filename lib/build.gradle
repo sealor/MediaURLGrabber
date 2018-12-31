@@ -1,4 +1,20 @@
 apply plugin: 'java-library'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:4.0.3'
+    }
+}
+
+shadowJar {
+    relocate 'org.json', 'shadow.org.json'
+}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
